@@ -1,8 +1,6 @@
-{-# LANGUAGE FlexibleContexts #-}
-
 module Day2 where
 
-import Text.Regex.TDFA (Regex, RegexContext, (=~))
+import Text.Regex.TDFA ((=~))
 
 toInt :: String -> Int
 toInt = read
@@ -24,8 +22,8 @@ isValid2 (n1, n2, c, pwd) = c1 /= c2 && (c1 == c || c2 == c)
     c1 = pwd !! (n1 -1)
     c2 = pwd !! (n2 -1)
 
-parse :: RegexContext Regex source1 (String, String, String, [String]) => source1 -> (String, String, String, [String])
-parse s = s =~ "([0-9]*)-([0-9]*) (.): (.*)" :: (String, String, String, [String])
+parse :: String -> (String, String, String, [String])
+parse s = s =~ "([0-9]*)-([0-9]*) (.): (.*)"
 
 day2 :: IO ()
 day2 = do

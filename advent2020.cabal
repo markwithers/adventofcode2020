@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 59c3180bfbce2bca180e87fb3ef7776e3133f21035a57a294c1912c5c7a91b0c
+-- hash: ed05fbce7be121495232abd494ed36a0fdddae6856b2169e43650cafb5721455
 
 name:           advent2020
 version:        0.1.0.0
@@ -30,6 +30,7 @@ library
       Day1
       Day2
       Day3
+      Day4
   other-modules:
       Paths_advent2020
   hs-source-dirs:
@@ -37,6 +38,8 @@ library
   build-depends:
       base >=4.7 && <5
     , regex-tdfa
+    , sort
+    , split
   default-language: Haskell2010
 
 executable advent2020-exe
@@ -50,6 +53,8 @@ executable advent2020-exe
       advent2020
     , base >=4.7 && <5
     , regex-tdfa
+    , sort
+    , split
   default-language: Haskell2010
 
 test-suite advent2020-test
@@ -64,4 +69,6 @@ test-suite advent2020-test
       advent2020
     , base >=4.7 && <5
     , regex-tdfa
+    , sort
+    , split
   default-language: Haskell2010

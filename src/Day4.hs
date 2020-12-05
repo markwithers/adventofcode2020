@@ -2,7 +2,7 @@ module Day4 where
 
 import Data.List (find)
 import Data.List.Split (splitOn, splitWhen)
-import Data.Sort (sort)
+import Data.Maybe (isJust)
 import Text.Regex.TDFA ((=~))
 
 expected :: [(String, String)]
@@ -16,25 +16,16 @@ expected =
     ("pid", "^[0-9]{9}$")
   ]
 
-keys :: [String] -> [String]
-keys = map (head . splitOn ":")
-
 keyValues :: [String] -> [[String]]
 keyValues = map (splitOn ":")
 
-validate :: [String] -> Bool
-validate ks
-  | sort ks == ["byr", "cid", "ecl", "eyr", "hcl", "hgt", "iyr", "pid"] = True
-  | sort ks == ["byr", "ecl", "eyr", "hcl", "hgt", "iyr", "pid"] = True
-  | otherwise = False
-
-match :: String -> String -> Bool
-match regex x = x =~ regex
-
 mMatchVal :: String -> Maybe [String] -> Bool
 mMatchVal regex m = case m of
-  Just [k, v] -> v =~ regex
+  Just [_, v] -> v =~ regex
   Nothing -> False
+
+validate1 :: Foldable t => t [String] -> Bool
+validate1 ks = all (\(key, _) -> isJust (find ((== key) . head) ks)) expected
 
 validate2 :: Foldable t => t [String] -> Bool
 validate2 ks = all (\(key, regex) -> mMatchVal regex (find ((== key) . head) ks)) expected
@@ -42,7 +33,7 @@ validate2 ks = all (\(key, regex) -> mMatchVal regex (find ((== key) . head) ks)
 day4 :: IO ()
 day4 = do
   x <- readFile "./inputs/day4"
-  let rawValues = map (concatMap (splitOn " ")) $ splitWhen (== "") $ lines x
+  let keyValuePairs = map (keyValues . concatMap (splitOn " ")) $ splitWhen (== "") $ lines x
 
-  print . length . filter validate . map keys $ rawValues
-  print . length . filter validate2 . map keyValues $ rawValues
+  print . length . filter validate1 $ keyValuePairs
+  print . length . filter validate2 $ keyValuePairs

@@ -1,7 +1,7 @@
 module Day6 where
 
-import Data.List
-import Data.List.Split
+import Data.List (intersect, union)
+import Data.List.Split (splitWhen)
 
 day6 :: IO ()
 day6 = do

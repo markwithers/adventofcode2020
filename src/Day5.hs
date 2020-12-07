@@ -9,6 +9,7 @@ getPos :: Integral p => String -> (p, p) -> p
 getPos (i : is) ns = getPos is (partition i ns)
 getPos [] (_, n) = n
 
+findSeat :: Integral a => String -> a
 findSeat is = getPos (take 7 is) (0, 127) * 8 + getPos (drop 7 is) (0, 7)
 
 day5 :: IO ()

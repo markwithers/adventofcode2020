@@ -14,4 +14,7 @@ findSeat is = getPos (take 7 is) (0, 127) * 8 + getPos (drop 7 is) (0, 7)
 day5 :: IO ()
 day5 = do
   x <- readFile "./inputs/day5"
-  print . maximum . map findSeat $ lines x
+  let ids = map findSeat $ lines x
+
+  print . maximum $ ids
+  print $ [id + 1 | id <- ids, id `elem` ids, (id + 1) `notElem` ids, (id + 2) `elem` ids]

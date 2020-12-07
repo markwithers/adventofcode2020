@@ -24,6 +24,7 @@ dependencies:
 - regex-tdfa
 - split
 - sort
+- containers
 
 library:
   source-dirs: src
